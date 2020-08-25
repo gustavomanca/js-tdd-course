@@ -1,42 +1,39 @@
 {
   "name": "js-tdd-course",
   "version": "1.0.0",
-  "description": "Our library from JS with TDD on practice course",
   "main": "index.js",
-  "scripts": {
-    "lint": "./node_modules/.bin/eslint src/*.js",
-    "prepush": "npm run lint",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gustavomanca/js-tdd-course.git"
-  },
-  "keywords": [
-    "js",
-    "tdd",
-    "library"
-  ],
+  "repository": "git@github.com:gustavomanca/js-tdd-course.git",
   "author": "Gustavo Manca <gustavo.manca@fatec.sp.gov.br> (https://linkedin.com/in/gustavomanca)",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/gustavomanca/js-tdd-course/issues"
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint src/*.js",
+    "prepush": "npm run lint && npm run test:coverage",
+    "test": "./node_modules/.bin/mocha tests/**/*.spec.js --require babel-register",
+    "test:tdd": "./node_modules/.bin/mocha tests/**/*.spec.js --require babel-register --watch",
+    "test:coverage": "nyc npm test"
   },
-  "homepage": "https://github.com/gustavomanca/js-tdd-course#readme",
+  "nyc": {
+    "functions": 80,
+    "lines": 80,
+    "check-coverage": true,
+    "reporter": [
+      "text",
+      "html"
+    ],
+    "exclude": [
+      "tests/**"
+    ]
+  },
   "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "chai": "^4.2.0",
     "eslint": "^7.7.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.20.6",
-    "eslint-plugin-react-hooks": "^4.1.0",
-    "husky": "^4.2.5"
-  },
-  {
-    "husky": {
-      "hooks": {
-        "pre-push": "npm test"
-      }
-    }
+    "husky": "^4.2.5",
+    "mocha": "^8.1.1",
+    "nyc": "^15.1.0"
   }
 }
